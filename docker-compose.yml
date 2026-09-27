@@ -1,0 +1,21 @@
+services:
+  fechat:
+    build: .
+    container_name: fechat_app
+    restart: unless-stopped
+    ports:
+      - "80:8000"
+    volumes:
+      - fechat_data:/app/uploads
+      - fechat_db:/app
+    environment:
+      - SECRET_KEY=fechat-super-secret-key-change-in-production-2026-xyz998877
+      - COMPLIANCE_KEY=compliance-secret-master-token-9981-sec
+      - DATABASE_URL=sqlite+aiosqlite:////app/fechat.db
+      - AI_API_URL=https://api.b.ai/v1/chat/completions
+      - AI_API_KEY=${AI_API_KEY:-}
+      - AI_MODEL=deepseek-v4-flash
+
+volumes:
+  fechat_data:
+  fechat_db:
